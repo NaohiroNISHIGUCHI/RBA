@@ -22,7 +22,7 @@ Package Constraints {
 	}
 	
 	Constraint Duplicate_display_of_outside_temperatures {
-		description: "If the meter shows the outside temperature, it won't show up on the HUD."
+		description: "If the meter shows the outside temperature, it will not show up on the HUD."
 		runtime: true
 		OutsideTemperatureArea.isDisplayed() -> HUD_OutsideTemperatureArea.isHidden()
 	}
@@ -40,31 +40,31 @@ Package Constraints {
 	}
 
 
-	Constraint Attenauteナビ音声・着信音優先制約 {
-		description: "ナビ・着信音が再生されているならば、音楽再生は減衰させる"
+	Constraint Navigation_voice_ringtone_priority_constraint {
+		description: "If the navigation / ringtone is playing, the music playback will be attenuated."
 		runtime: true
-		案内音声.isSounding() OR 着信音.isSounding()-> 基本音声出力ゾーン.isAttenuated()
+		GuideVoice.isSounding() OR Ringtone.isSounding()-> BaseSoundZone.isAttenuated()
 	}
 
-	Constraint 警告音最優先制約 {
-		description: "警告音が再生されているならば、音楽再生はミュート"
+	Constraint Warning_sound_top_priority_constraint {
+		description: "If a AlertSound is playing, music playback must be muted"
 		runtime: true
-		警告音.isSounding()-> 基本音声出力ゾーン.isMuted()
+		AlertSound.isSounding()-> BaseSoundZone.isMuted()
 	}
 
-	Constraint 表示と音の同期制約 {
-		description: "オーディオが表示されていたら音楽再生する"
+	Constraint View_and_sound_synchronization_constraints {
+		description: "Play music if audio is displayed"
 		runtime: true
-		オーディオ.isVisible() -> 音楽.isSounding()
+		Audio.isVisible() -> Music.isSounding()
 	}
 
-	PostConstraint インフラ協調を待機させる後処理制約 {
-		description: "インフラ協調は、TELに調停負けした場合は待機する"
-		インフラ協調.isDefeatedBy(TEL) -> !インフラ協調.isCanceled()
+	PostConstraint Post_processing_constraints_that_make_infrastructure_coordination_stand_by {
+		description: "Infrastructure coordination waits if TEL loses mediation"
+		InfraCoordination.isDefeatedBy(TEL) -> !InfraCoordination.isCanceled()
 	}
 
-	Constraint 意図しない振舞を検出するオフライン制約 {
-		description: "前回非表示のコンテンツが今回表示されて良いかチェックする"
+	Constraint Offline_constraints_to_detect_unintended_behavior {
+		description: "Check if the previously hidden content can be displayed this time"
 		runtime: false
 		For-All ALL_VIEWCONTENTS { x |
 			((!(pre)x.isVisible() AND x.isVisible())

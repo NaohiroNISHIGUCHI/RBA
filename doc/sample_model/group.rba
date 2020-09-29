@@ -57,7 +57,7 @@ Package Grouping {
 
 	ViewContentSet InterruptContentGroup {
 		target:[
-			PCS, TEL, インフラ協調, 天気予報
+			PCS, TEL, InfraCoordination, WeatherForecast
 		]
 		allocatable:[
 			InterruptMessageAreaGroup
@@ -66,7 +66,7 @@ Package Grouping {
 
 	SoundContentSet IntSoundContentsGroup {
 		target:[
-			案内音声, 着信音, 警告音
+			GuideVoice, Ringtone, AlertSound
 		]
 		allocatable:[
 			IntSoundZone

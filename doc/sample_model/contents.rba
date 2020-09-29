@@ -116,7 +116,7 @@ Package Contents {
 		
 	SoundContent Ringtone {
 		State NORMAL {
-			priority: > That-of 案内音声.NORMAL
+			priority: > That-of GuideVoice.NORMAL
 		}
 	}
 
